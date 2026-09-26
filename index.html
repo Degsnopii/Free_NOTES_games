@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#087df5">
+<meta name="description" content="Личная подборка игр для двоих, локального кооператива и сетевых игровых вечеров.">
+<title>ИГРЫ / CO-OP ARCADE — @DENK</title>
+<style>
+:root{
+  --blue:#087df5; --deep:#062b75; --cyan:#27d8ff; --red:#ef2a35; --yellow:#ffd64a;
+  --ink:#0d1728; --muted:#66758a; --paper:#f4f8ff; --white:#fff; --line:rgba(9,44,104,.12);
+  --shadow:0 22px 55px rgba(1,32,86,.14); --radius:26px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);
+  background:radial-gradient(circle at 8% 8%,rgba(39,216,255,.16),transparent 22%),
+             radial-gradient(circle at 88% 20%,rgba(239,42,53,.10),transparent 24%),
+             linear-gradient(180deg,#edf6ff 0,#fff 24%,#f7f9fd 100%);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100vh;
+}
+a{color:inherit} ::selection{background:var(--yellow);color:var(--ink)}
+.page-shell{max-width:1480px;margin:0 auto;padding:22px 22px 42px}
+.hero{
+  position:relative;overflow:hidden;min-height:560px;border-radius:38px;
+  background:radial-gradient(circle at 75% 34%,rgba(39,216,255,.30),transparent 24%),
+             radial-gradient(circle at 86% 68%,rgba(255,214,74,.14),transparent 21%),
+             linear-gradient(135deg,#043eaf 0%,#087df5 54%,#0f5ec9 100%);
+  box-shadow:0 35px 70px rgba(3,54,140,.27);isolation:isolate;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.72;
+  background:radial-gradient(circle at 13% 18%,rgba(255,255,255,.28) 0 1px,transparent 2px),
+             radial-gradient(circle at 30% 73%,rgba(255,255,255,.2) 0 1px,transparent 2px),
+             radial-gradient(circle at 70% 14%,rgba(255,255,255,.22) 0 1px,transparent 2px),
+             repeating-linear-gradient(145deg,transparent 0 28px,rgba(255,255,255,.045) 29px 31px);
+}
+.hero::after{
+  content:"";position:absolute;left:-3%;right:-3%;bottom:-56px;height:180px;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.1)),
+             repeating-linear-gradient(135deg,transparent 0 48px,rgba(6,43,117,.30) 49px 88px,transparent 89px 136px);
+  filter:blur(.5px);z-index:-1;
+}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 24px 0;position:relative;z-index:5}
+.brand{display:flex;align-items:center;gap:12px;color:#fff;font-weight:900;letter-spacing:.06em}
+.brand-mark{width:48px;height:48px;border:3px solid rgba(255,255,255,.82);border-radius:50%;display:grid;place-items:center;font-weight:1000;font-size:18px;box-shadow:0 0 0 6px rgba(255,255,255,.08),0 8px 18px rgba(0,0,0,.12)}
+.brand small{display:block;font-size:11px;opacity:.72;letter-spacing:.17em}
+.hero-link{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;color:#fff;text-decoration:none;font-weight:800;font-size:12px;letter-spacing:.08em;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.10);backdrop-filter:blur(10px)}
+.hero-content{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,520px);gap:32px;align-items:center;padding:60px 7% 46px;min-height:482px}
+.hero-copy{position:relative;z-index:3;max-width:740px}
+.kicker{display:inline-flex;align-items:center;gap:10px;padding:9px 13px;border-radius:999px;color:#082f7b;background:#fff;font-size:11px;font-weight:1000;letter-spacing:.16em;box-shadow:0 9px 20px rgba(1,31,91,.16)}
+.kicker::before{content:"";width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px rgba(239,42,53,.16)}
+.hero h1{margin:20px 0 12px;color:#fff;font-size:clamp(54px,7vw,110px);line-height:.88;letter-spacing:-.065em;max-width:800px}
+.hero h1 span{display:block;color:var(--yellow);text-shadow:0 6px 0 rgba(0,0,0,.08)}
+.hero-sub{max-width:710px;margin:0;color:rgba(255,255,255,.86);font-size:clamp(16px,1.6vw,21px);line-height:1.55}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.stat{min-width:112px;padding:13px 15px;border-radius:18px;color:#fff;border:1px solid rgba(255,255,255,.18);background:rgba(2,26,78,.18);backdrop-filter:blur(10px)}
+.stat strong{display:block;font-size:24px;line-height:1}
+.stat span{display:block;margin-top:7px;font-size:10px;font-weight:900;letter-spacing:.13em;opacity:.72}
+.hero-art{position:relative;height:430px;z-index:2;display:grid;place-items:center}
+.hero-sonic{position:absolute;height:455px;max-width:none;right:5%;bottom:-30px;filter:drop-shadow(0 28px 18px rgba(0,0,0,.23));transform:rotate(-3deg);animation:float 5.8s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(-1deg)}}
+.ring{position:absolute;border:5px solid var(--yellow);border-radius:50%;opacity:.92;filter:drop-shadow(0 5px 5px rgba(0,0,0,.09))}
+.ring.r1{width:82px;height:82px;right:73%;top:10%;animation:spin 9s linear infinite}
+.ring.r2{width:52px;height:52px;right:10%;top:5%;animation:spin 6s linear infinite reverse}
+.ring.r3{width:118px;height:118px;left:7%;bottom:10%;animation:spin 11s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.speed-line{position:absolute;height:5px;border-radius:999px;background:rgba(255,255,255,.45);filter:blur(.4px)}
+.sl1{width:120px;right:23%;top:24%;transform:skewX(-32deg)}
+.sl2{width:220px;right:25%;top:29%;transform:skewX(-32deg);opacity:.25}
+.sl3{width:95px;right:50%;top:74%;transform:skewX(-32deg);opacity:.28}
+.toolbar{position:sticky;top:14px;z-index:20;margin:-28px 0 28px;padding:14px;background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(18px);border-radius:22px;box-shadow:0 16px 38px rgba(5,46,110,.12);display:grid;grid-template-columns:minmax(260px,1fr) auto auto;gap:12px;align-items:center}
+.search{display:flex;align-items:center;gap:10px;padding:0 15px;border:1px solid var(--line);height:48px;border-radius:14px;background:#fbfdff}
+.search span{font-size:20px;color:var(--blue)} .search input{border:0;outline:0;background:transparent;width:100%;font:inherit;color:var(--ink);font-weight:650}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filter{border:1px solid var(--line);background:#fff;color:var(--muted);padding:10px 13px;border-radius:999px;font-size:12px;font-weight:900;cursor:pointer;transition:.2s}
+.filter:hover{transform:translateY(-1px);border-color:rgba(8,125,245,.25)} .filter.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.sort select{height:46px;border:1px solid var(--line);background:#fff;border-radius:13px;padding:0 14px;font:inherit;font-size:12px;font-weight:850;color:var(--ink);outline:none}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:26px 0 17px}
+.section-head h2{margin:0;font-size:clamp(28px,4vw,46px);letter-spacing:-.04em} .section-head p{margin:0;color:var(--muted);font-size:13px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.game-card{position:relative;display:grid;grid-template-columns:220px minmax(0,1fr);min-height:470px;background:rgba(255,255,255,.94);border:1px solid rgba(8,50,115,.10);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}
+.game-card:hover{transform:translateY(-5px);box-shadow:0 28px 68px rgba(1,34,91,.18);border-color:rgba(8,125,245,.24)}
+.card-energy{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 82% 0%,rgba(39,216,255,.11),transparent 30%)}
+.poster-zone{padding:14px;display:flex;flex-direction:column;gap:10px;background:linear-gradient(160deg,#062b75 0%,#0a6fe1 78%,#0d84ee 100%)}
+.poster-frame{position:relative;overflow:hidden;border-radius:18px;flex:1;min-height:300px;background:#0c234e;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}
+.poster{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.08) contrast(1.03);transition:transform .35s ease}
+.game-card:hover .poster{transform:scale(1.045)}
+.poster-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),transparent 44%,rgba(0,0,0,.4))}
+.poster-number{position:absolute;left:11px;top:10px;z-index:2;color:#fff;font-weight:1000;font-size:12px;letter-spacing:.16em;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+.poster-corner{position:absolute;right:10px;bottom:10px;z-index:2;color:#fff;background:rgba(0,0,0,.30);padding:6px 7px;border-radius:8px;font-size:8px;font-weight:1000;letter-spacing:.14em;backdrop-filter:blur(6px)}
+.mini-banner{height:52px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07)}
+.mini-banner img{width:100%;height:100%;object-fit:cover;opacity:.7;display:block}
+.card-main{padding:22px 22px 19px;position:relative;z-index:1;display:flex;flex-direction:column}
+.card-topline{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.eyebrow{font-size:10px;letter-spacing:.14em;font-weight:1000;color:var(--blue);text-transform:uppercase}
+.players-pill{font-size:10px;font-weight:900;color:#36506e;background:#f2f7ff;border:1px solid #e1ebfa;padding:7px 9px;border-radius:999px;white-space:nowrap}
+.card-main h2{margin:12px 0 2px;font-size:30px;line-height:1.02;letter-spacing:-.04em}
+.title-stripe{display:flex;gap:4px;margin:10px 0 15px}.title-stripe span:nth-child(1){width:31px}.title-stripe span:nth-child(2){width:10px}.title-stripe span:nth-child(3){width:6px}.title-stripe span{height:4px;border-radius:999px;background:var(--red)}
+.description{margin:0;color:#42546b;font-size:13px;line-height:1.58}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:18px 0 12px}
+.mode-box{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:15px;padding:11px 12px;background:#fbfdff}
+.mode-box.yes{border-color:rgba(15,155,91,.16);background:linear-gradient(180deg,#f8fffb,#f2fbf7)} .mode-box.no{border-color:rgba(239,42,53,.16);background:linear-gradient(180deg,#fff9f9,#fff4f4)}
+.mode-icon{font-weight:1000;font-size:18px;line-height:1}.mode-box.yes .mode-icon,.mode-box.yes strong{color:#14935c}.mode-box.no .mode-icon,.mode-box.no strong{color:var(--red)}
+.mode-box small{display:block;font-size:8px;letter-spacing:.13em;font-weight:1000;color:#8291a5}.mode-box strong{display:block;margin-top:2px;font-size:13px}
+.more{border-top:1px dashed var(--line);padding-top:12px}.more summary{cursor:pointer;list-style:none;font-size:11px;font-weight:1000;color:#23436a;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center}.more summary::-webkit-details-marker{display:none}.more summary::after{content:"+";font-size:18px;color:var(--blue)}.more[open] summary::after{content:"–"}
+.details-body{margin-top:11px;display:grid;gap:10px}.detail-row{padding:10px 11px;border-radius:13px;background:#f7faff}.detail-label{display:block;font-size:8px;letter-spacing:.14em;font-weight:1000;color:var(--blue);text-transform:uppercase;margin-bottom:5px}.detail-row p{margin:0;color:#50637b;font-size:11px;line-height:1.5}
+.card-footer{margin-top:auto;padding-top:16px;display:flex;justify-content:space-between;gap:10px;align-items:end;border-top:1px solid rgba(8,50,115,.06)}.platforms{display:flex;flex-wrap:wrap;gap:5px;max-width:75%}.platform-chip,.tag{display:inline-flex;align-items:center;padding:5px 7px;border-radius:8px;background:#f3f7fc;color:#60728a;font-size:9px;font-weight:850}
+.store-link{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:9px 10px;border-radius:11px;background:var(--ink);color:#fff;text-decoration:none;font-size:10px;font-weight:900;transition:.2s}.store-link:hover{background:var(--blue);transform:translateY(-1px)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.tag{background:transparent;padding:2px 0;color:#90a0b3}
+.empty{display:none;padding:54px 24px;text-align:center;border:1px dashed rgba(8,50,115,.18);border-radius:24px;background:#fff}.empty strong{display:block;font-size:22px}.empty span{display:block;margin-top:7px;color:var(--muted);font-size:13px}
+.footer{margin-top:50px;padding:26px 4px 8px;border-top:1px solid rgba(8,50,115,.10);display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.denk-logo{font-size:42px;font-weight:1000;letter-spacing:-.08em;line-height:.9;color:var(--ink)}.denk-logo span{color:var(--red)}
+.footer-meta{max-width:650px;color:#7a899b;font-size:10px;line-height:1.6;text-align:right}
+@media (max-width:1100px){
+  .hero-content{grid-template-columns:1fr 360px;padding-left:5%;padding-right:5%}.hero-art{height:410px}.hero-sonic{height:415px}.grid{grid-template-columns:1fr}
+}
+@media (max-width:780px){
+  .page-shell{padding:10px 10px 24px}.hero{border-radius:28px;min-height:720px}.topbar{padding:14px 16px 0}
+  .hero-content{grid-template-columns:1fr;gap:10px;padding:52px 28px 24px}.hero-art{height:300px;margin-top:-22px}.hero-sonic{height:330px;right:13%;bottom:-12px}
+  .ring.r1{left:12%;right:auto;top:8%}.ring.r2{right:4%;top:3%}.ring.r3{left:2%;bottom:8%}
+  .toolbar{position:static;grid-template-columns:1fr;margin:14px 0 24px}.filters{overflow:auto;padding-bottom:2px;flex-wrap:nowrap}.filter{white-space:nowrap}
+  .grid{gap:14px}.game-card{grid-template-columns:1fr;min-height:0}.poster-zone{display:grid;grid-template-columns:160px 1fr;gap:10px}.poster-frame{min-height:240px}.mini-banner{height:auto;min-height:70px;align-self:stretch}
+  .card-main h2{font-size:27px}.card-footer{align-items:start;flex-direction:column}.platforms{max-width:100%}.section-head{align-items:start;flex-direction:column}
+}
+@media (max-width:520px){
+  .hero h1{font-size:54px}.stats{gap:8px}.stat{min-width:100px}.poster-zone{grid-template-columns:1fr}.poster-frame{height:300px}.mini-banner{height:58px}.mode-grid{grid-template-columns:1fr}.footer-meta{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page-shell">
+<header class="hero">
+  <div class="topbar">
+    <div class="brand"><div class="brand-mark">@</div><div><small>PERSONAL COLLECTION</small><div>FREE NOTES / GAMES</div></div></div>
+    <a class="hero-link" href="#collection">К коллекции ↓</a>
+  </div>
+  <div class="hero-content">
+    <div class="hero-copy">
+      <span class="kicker">11 ИГР • ДЛЯ ВЕЧЕРА</span>
+      <h1>PLAY<br><span>TOGETHER.</span></h1>
+      <p class="hero-sub">Подборка для двух игроков, диванного кооператива, сетевых вечеров и тех игр, которые лучше оставить одному.</p>
+      <div class="stats">
+        <div class="stat"><strong>11</strong><span>ИГР В СПИСКЕ</span></div>
+        <div class="stat"><strong>10</strong><span>НА ОДНОМ ЭКРАНЕ</span></div>
+        <div class="stat"><strong>10</strong><span>С ОНЛАЙН-РЕЖИМОМ</span></div>
+        <div class="stat"><strong>1</strong><span>ТОЛЬКО СОЛО</span></div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
+      <span class="speed-line sl1"></span><span class="speed-line sl2"></span><span class="speed-line sl3"></span>
+      <img class="hero-sonic" src="https://freepngimg.com/thumb/sonic_the_hedgehog/21289-5-sonic-the-hedgehog.png" alt="">
+    </div>
+  </div>
+</header>
+
+<section class="toolbar" aria-label="Фильтры коллекции">
+  <label class="search"><span>⌕</span><input id="search" type="search" placeholder="Найти игру..." autocomplete="off"></label>
+  <div class="filters">
+    <button class="filter active" type="button" data-filter="all">Все</button>
+    <button class="filter" type="button" data-filter="screen">1 экран</button>
+    <button class="filter" type="button" data-filter="online">Онлайн</button>
+    <button class="filter" type="button" data-filter="solo">Соло</button>
+  </div>
+  <label class="sort"><select id="sort"><option value="order">Порядок подборки</option><option value="az">А → Я</option><option value="screen">Сначала 1 экран</option></select></label>
+</section>
+
+<main id="collection">
+  <div class="section-head"><div><h2>Выбирай, что запускать.</h2></div><p id="resultCount">Показано 11 из 11</p></div>
+  <section class="grid" id="grid">
+    
+<article class="game-card" data-screen="true" data-online="true" data-title="froggin&#x27; around">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4005900/library_600x900.jpg" alt="Обложка игры Froggin&#x27; Around"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4005900/header.jpg';">
+      <span class="poster-number">01</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4005900/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">Локальный кооп</span>
+      <span class="players-pill">◉ 2 игрока</span>
+    </div>
+    <h2>Froggin&#x27; Around</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Яркое, хаотичное и комедийное инди-приключение, завязанное на физике. Игроки берут на себя роль двух озорных лягушат, которые пытаются сбежать из таинственной волшебной мастерской. Главная механика — использование длинных и эластичных языков, с помощью которых нужно цепляться за предметы, раскачиваться, преодолевать препятствия и решать пространственные головоломки.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА. Игра изначально создавалась как строго локальный кооператив для двух человек за одним монитором (телевизором).</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Поддерживает Steam Remote Play Together; разработчики также пообещали добавить полноценный онлайн-мультиплеер к релизу полной версии.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam)</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/4005900/Froggin_Around/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#физика</span><span class="tag">#головоломки</span><span class="tag">#2 игрока</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="false" data-online="false" data-title="breathedge">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/738520/library_600x900.jpg" alt="Обложка игры Breathedge"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/738520/header.jpg';">
+      <span class="poster-number">02</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/738520/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">Только соло</span>
+      <span class="players-pill">◉ 1 игрок</span>
+    </div>
+    <h2>Breathedge</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Ироничный симулятор выживания в открытом космосе с чёрным юмором и абсурдным сюжетом. Главный герой летит на космическом катафалке хоронить дедушку, но корабль терпит крушение среди межгалактического мусора. Игроку предстоит собирать хлам, создавать полезные инструменты с помощью синей изоленты, строить орбитальные базы, пилотировать транспорт и пытаться не задохнуться в вакууме в компании бессмертной курицы. Игра сильно напоминает Subnautica, но в космосе и со специфическими шутками.</p>
+    <div class="mode-grid">
+      <div class="mode-box no"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>НЕТ</strong></div></div>
+      <div class="mode-box no"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>НЕТ</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>НЕТ. Игра является строго одиночным приключением.</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>НЕТ. В игре полностью отсутствует сетевой мультиплеер или кооператив.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam)</span><span class="platform-chip">PlayStation 4/5</span><span class="platform-chip">Xbox One</span><span class="platform-chip">Nintendo Switch</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/738520/Breathedge/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#выживание</span><span class="tag">#космос</span><span class="tag">#соло</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="true" data-online="true" data-title="age twisters">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2643540/library_600x900.jpg" alt="Обложка игры Age Twisters"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2643540/header.jpg';">
+      <span class="poster-number">03</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2643540/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">Couch co-op</span>
+      <span class="players-pill">◉ 2 игрока</span>
+    </div>
+    <h2>Age Twisters</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Кооперативное приключенческое экшен-платформер с упором на сюжет и головоломки, которое сильно напоминает хиты вроде It Takes Two. Игроки берут на себя роли дедушки и внучки, которые расследуют таинственное исчезновение матери девочки. Главная механика игры завязана на специальных браслетах, позволяющих персонажам в реальном времени менять свой возраст (от ребенка до немощного старика). Каждая возрастная фаза дает уникальные способности, физику и варианты взаимодействия, которые необходимо комбинировать для прохождения динамичных уровней.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА. Игра создана исключительно для совместного прохождения. Поддерживается полноценный диванный кооператив (couch co-op) на одном экране.</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Поддерживает полноценный онлайн-кооператив. Действует система Friend&#x27;s Pass — покупать игру нужно только одному человеку.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam)</span><span class="platform-chip">PlayStation 5</span><span class="platform-chip">Xbox Series X/S</span><span class="platform-chip">Nintendo Switch 2</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/2643540/Age_Twisters/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#головоломки</span><span class="tag">#кооп</span><span class="tag">#Friend&#x27;s Pass</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="true" data-online="true" data-title="split fiction">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2001120/library_600x900.jpg" alt="Обложка игры Split Fiction"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2001120/header.jpg';">
+      <span class="poster-number">04</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2001120/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">Экран 2 × 1</span>
+      <span class="players-pill">◉ 2 игрока</span>
+    </div>
+    <h2>Split Fiction</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Кинематографичный и креативный кооперативный экшен-платформер. В центре сюжета две писательницы-противоположности: Мио пишет суровую научную фантастику, а Зои — безумное фэнтези. Они оказываются заперты внутри виртуальной симуляции, которая ворует их творческие идеи. Чтобы выбраться, героиням приходится перемещаться между своими недописанными историями, а геймплей постоянно меняет правила и миры.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА (ОБЯЗАТЕЛЬНО). Игра создана исключительно для совместного прохождения, а экран на протяжении приключения разделен на две части.</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Поддерживает онлайн-кооператив через бесплатный Friend&#x27;s Pass.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam)</span><span class="platform-chip">PlayStation 5</span><span class="platform-chip">Xbox Series X/S</span><span class="platform-chip">Nintendo Switch 2</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/2001120/Split_Fiction/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#сюжет</span><span class="tag">#экшен</span><span class="tag">#split-screen</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="true" data-online="true" data-title="it takes two">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1426210/library_600x900.jpg" alt="Обложка игры It Takes Two"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg';">
+      <span class="poster-number">05</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">Couch co-op</span>
+      <span class="players-pill">◉ 2 игрока</span>
+    </div>
+    <h2>It Takes Two</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Приключенческий экшен-платформер о супругах Коди и Мэй, которые из-за слез дочери превращаются в тряпичную и глиняную кукол. Чтобы вернуть человеческий облик, им приходится пройти множество испытаний под руководством живой причудливой книги о любви — Доктора Хаки. Геймплей постоянно меняется: здесь встречаются шутер, элементы RPG и механики управления временем.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА. Игра создана исключительно для совместного прохождения; в одиночку запустить её нельзя, а экран разделен почти всю игру.</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Поддерживает онлайн-кооператив через Friend&#x27;s Pass. Достаточно покупки у одного игрока.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam / EA App)</span><span class="platform-chip">PlayStation 4/5</span><span class="platform-chip">Xbox One</span><span class="platform-chip">Xbox Series X/S</span><span class="platform-chip">Nintendo Switch</span></div>
+      <div class="card-actions"><a class="store-link" href="https://www.google.com/search?q=it+takes+two" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#приключение</span><span class="tag">#головоломки</span><span class="tag">#2 игрока</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="true" data-online="true" data-title="hela: of mice &amp; magic">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3161310/library_600x900.jpg" alt="Обложка игры Hela: of Mice &amp; Magic"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3161310/header.jpg';">
+      <span class="poster-number">06</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3161310/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">Локальный кооп</span>
+      <span class="players-pill">◉ 2 локально / до 4 онлайн</span>
+    </div>
+    <h2>Hela: of Mice &amp; Magic</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Милое и уютное приключенческое 3D-экшен/платформер с открытым миром, вдохновленное скандинавским фольклором и пейзажами северной Швеции. Игроки примеряют на себя роли крошечных мышат — фамильяров доброй ведьмы, которая заболела. С помощью волшебных рюкзаков и эластичных лягушачьих языков мышата исследуют большой для них мир, собирают ингредиенты, варят зелья и решают физические головоломки.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА. Игра поддерживает локальный диванный кооператив для двух человек с разделением экрана (Split Screen).</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Поддерживает полноценный онлайн-кооператив до 4 игроков.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam)</span><span class="platform-chip">PlayStation 5</span><span class="platform-chip">Xbox Series X/S</span><span class="platform-chip">Nintendo Switch 2</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/3161310/Hela_of_Mice__Magic/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#уютная</span><span class="tag">#открытый мир</span><span class="tag">#до 4</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="true" data-online="true" data-title="party animals">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1260320/library_600x900.jpg" alt="Обложка игры Party Animals"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1260320/header.jpg';">
+      <span class="poster-number">07</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1260320/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">До 4 на одном экране</span>
+      <span class="players-pill">◉ до 4 локально / до 8 онлайн</span>
+    </div>
+    <h2>Party Animals</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Уморительный и хаотичный мультиплеерный экшен-файтинг на ragdoll-физике. Игроки управляют плюшевыми зверушками — щенками, котятами, утятами, акулами и другими созданиями. Цель — победить соперников в разных режимах, используя удары, захваты, увороты и разбросанное по картам безумное оружие.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА. Поддерживает локальный диванный кооператив до 4 игроков на одном экране. Для игры всё равно требуется постоянное подключение к интернету.</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Полноценный онлайн-мультиплеер до 8 игроков с кроссплеем. Есть бесплатная гостевая версия Friend&#x27;s Pass в Steam.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam)</span><span class="platform-chip">PlayStation 5</span><span class="platform-chip">Xbox One</span><span class="platform-chip">Xbox Series X/S</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/1260320/Party_Animals/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#party</span><span class="tag">#ragdoll</span><span class="tag">#до 8</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="true" data-online="true" data-title="overcooked! 2">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/728880/library_600x900.jpg" alt="Обложка игры Overcooked! 2"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/728880/header.jpg';">
+      <span class="poster-number">08</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/728880/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">До 4 на одном экране</span>
+      <span class="players-pill">◉ до 4 игроков</span>
+    </div>
+    <h2>Overcooked! 2</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Динамичный и хаотичный симулятор ресторанной кухни. Игроки берут на себя роли шеф-поваров, которым нужно спасти Луковое королевство от нашествия ходячего хлебца. Нужно нарезать ингредиенты, варить, жарить, собирать заказы, мыть посуду и не сжечь кухню, пока сами уровни постоянно меняются.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА. На одном экране за одним устройством могут играть до 4 человек одновременно.</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Поддерживает полноценный онлайн-мультиплеер и кооператив до 4 игроков, а также Steam Remote Play Together.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam / Epic Games Store)</span><span class="platform-chip">PlayStation 4/5</span><span class="platform-chip">Xbox One</span><span class="platform-chip">Xbox Series X/S</span><span class="platform-chip">Nintendo Switch</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/728880/Overcooked_2/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#кухня</span><span class="tag">#party</span><span class="tag">#до 4</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="true" data-online="true" data-title="stage fright">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3260750/library_600x900.jpg" alt="Обложка игры Stage Fright"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3260750/header.jpg';">
+      <span class="poster-number">09</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3260750/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">Couch co-op</span>
+      <span class="players-pill">◉ 2 игрока</span>
+    </div>
+    <h2>Stage Fright</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Кооперативная приключенческая игра от Ghost Town Games, создателей Overcooked!. Игрокам предстоит исследовать таинственный, слегка жутковатый городок. Вместо кулинарного хаоса здесь упор сделан на головоломки в духе квест-комнат, коммуникацию, координацию действий в разных измерениях и спасение друг друга от ловушек.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА. Проект изначально создавался под совместное прохождение и поддерживает диванный кооператив на одном экране.</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Поддерживает полноценный онлайн-кооператив для двух игроков.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam)</span><span class="platform-chip">Nintendo Switch</span><span class="platform-chip">Nintendo Switch 2</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/3260750/Stage_Fright/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#головоломки</span><span class="tag">#escape room</span><span class="tag">#2027</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="true" data-online="true" data-title="lost in tandem">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3846580/library_600x900.jpg" alt="Обложка игры Lost in Tandem"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3846580/header.jpg';">
+      <span class="poster-number">10</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3846580/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">Динамический split-screen</span>
+      <span class="players-pill">◉ 2 игрока</span>
+    </div>
+    <h2>Lost in Tandem</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Красочное и размеренное двухмерное приключение с элементами головоломки в живописном постапокалиптическом мире. Сюжет рассказывает о союзе юной девушки и сломанного робота по имени Мех-ют, который стремится завершить свою миссию. Геймплей построен на асимметричном взаимодействии двух персонажей с уникальными способностями.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА. Полностью поддерживает диванный кооператив. Экран разделяется динамически только тогда, когда персонажи отходят далеко друг от друга. Также можно играть одному.</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Прямого онлайн-мультиплеера нет, но работает Steam Remote Play Together — один владелец игры может пригласить друга.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam)</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/3846580/Lost_in_Tandem/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#2D</span><span class="tag">#асимметрия</span><span class="tag">#Remote Play</span></div>
+  </div>
+</article>
+
+
+<article class="game-card" data-screen="true" data-online="true" data-title="wheelmates">
+  <div class="card-energy"></div>
+  <div class="poster-zone">
+    <div class="poster-frame">
+      <img class="poster" loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3905450/library_600x900.jpg" alt="Обложка игры WheelMates"
+           onerror="this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3905450/header.jpg';">
+      <span class="poster-number">11</span>
+      <span class="poster-corner">CO-OP FILE</span>
+    </div>
+    <div class="mini-banner">
+      <img loading="lazy" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3905450/header.jpg" alt="" onerror="this.style.display='none';">
+    </div>
+  </div>
+  <div class="card-main">
+    <div class="card-topline">
+      <span class="eyebrow">Парный кооп</span>
+      <span class="players-pill">◉ 2 игрока</span>
+    </div>
+    <h2>WheelMates</h2>
+    <div class="title-stripe"><span></span><span></span><span></span></div>
+    <p class="description">Кооперативное приключенческое авто-родео. Игроки берут под управление две крошечные радиоуправляемые машинки, а огромный дом превращается в интерактивную игровую площадку с препятствиями. Геймплей завязан на физике и командном взаимодействии: нужно координировать тайминги, решать пространственные головоломки и использовать гаджеты вроде крюков-кошек и магнитных колёс.</p>
+    <div class="mode-grid">
+      <div class="mode-box yes"><div class="mode-icon">▣</div><div><small>ОДИН ЭКРАН</small><strong>ДА</strong></div></div>
+      <div class="mode-box yes"><div class="mode-icon">↯</div><div><small>ОНЛАЙН</small><strong>ДА</strong></div></div>
+    </div>
+    <details class="more">
+      <summary>Открыть детали</summary>
+      <div class="details-body">
+        <div class="detail-row"><span class="detail-label">На одном экране</span><p>ДА. Игра полностью поддерживает классический диванный кооператив с разделением экрана. Парное прохождение является основой дизайна.</p></div>
+        <div class="detail-row"><span class="detail-label">Сетевые режимы</span><p>Поддерживает полноценный онлайн-кооператив на двоих, Steam Remote Play Together и Friend&#x27;s Pass.</p></div>
+      </div>
+    </details>
+    <div class="card-footer">
+      <div class="platforms"><span class="platform-chip">PC (Steam)</span><span class="platform-chip">PlayStation 5</span><span class="platform-chip">Xbox Series X/S</span></div>
+      <div class="card-actions"><a class="store-link" href="https://store.steampowered.com/app/3905450/WheelMates/" target="_blank" rel="noopener noreferrer">Страница игры <span>↗</span></a></div>
+    </div>
+    <div class="tags"><span class="tag">#авто</span><span class="tag">#физика</span><span class="tag">#головоломки</span></div>
+  </div>
+</article>
+
+  </section>
+  <div class="empty" id="empty"><strong>Ничего не найдено.</strong><span>Попробуй другое название или сбрось фильтры.</span></div>
+</main>
+
+<footer class="footer">
+  <div class="denk-logo">@<span>DENK</span></div>
+  <div class="footer-meta">
+    Обложки и промо-арт загружаются из Steam Store Assets. Права на игровые изображения принадлежат соответствующим правообладателям.<br>
+    Character artwork: Gordon Scott / FreePNGimg — CC BY-NC 4.0.
+  </div>
+</footer>
+</div>
+
+<script>
+(() => {
+  const grid = document.getElementById('grid');
+  const cards = [...grid.querySelectorAll('.game-card')];
+  const search = document.getElementById('search');
+  const filters = [...document.querySelectorAll('.filter')];
+  const sort = document.getElementById('sort');
+  const resultCount = document.getElementById('resultCount');
+  const empty = document.getElementById('empty');
+  let activeFilter = 'all';
+
+  function matches(card) {
+    const q = search.value.trim().toLowerCase();
+    const title = card.dataset.title || '';
+    const text = card.textContent.toLowerCase();
+    const searchable = title + ' ' + text;
+    if (q && !searchable.includes(q)) return false;
+    if (activeFilter === 'screen' && card.dataset.screen !== 'true') return false;
+    if (activeFilter === 'online' && card.dataset.online !== 'true') return false;
+    if (activeFilter === 'solo' && !(card.dataset.screen === 'false' && card.dataset.online === 'false')) return false;
+    return true;
+  }
+
+  function render() {
+    const sorted = [...cards].sort((a,b) => {
+      if (sort.value === 'az') return a.dataset.title.localeCompare(b.dataset.title, 'ru');
+      if (sort.value === 'screen') return Number(b.dataset.screen === 'true') - Number(a.dataset.screen === 'true');
+      return cards.indexOf(a) - cards.indexOf(b);
+    });
+    sorted.forEach(c => grid.appendChild(c));
+    let shown = 0;
+    cards.forEach(card => {
+      const show = matches(card);
+      card.style.display = show ? '' : 'none';
+      if (show) shown++;
+    });
+    resultCount.textContent = `Показано ${shown} из ${cards.length}`;
+    empty.style.display = shown ? 'none' : 'block';
+  }
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(x => x.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      render();
+    });
+  });
+
+  search.addEventListener('input', render);
+  sort.addEventListener('change', render);
+  render();
+})();
+</script>
+</body>
+</html>
